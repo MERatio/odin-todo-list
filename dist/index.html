@@ -6,11 +6,71 @@
     <title>Odin Todo List</title>
   </head>
   <body>
+    <!-- Project form modal -->
+    <div
+      class="modal fade"
+      id="projectFormModal"
+      tabindex="-1"
+      aria-labelledby="projectFormModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="projectFormModalLabel">
+              Add New Project
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="inputProjectName">Project name</label>
+                <input type="text" class="form-control" id="inputProjectName" />
+              </div>
+              <div class="d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-secondary mr-2"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Create project
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container pt-4">
       <div class="row">
         <div class="projects-div col-md-4">
           <h2 class="text-center">Projects</h2>
-          <button class="btn btn-primary w-100">Add Project</button>
+          <select class="custom-select">
+            <option value="" selected>Default</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <!-- Button trigger form modal -->
+          <button
+            type="button"
+            class="btn btn-primary w-100 mt-3"
+            data-toggle="modal"
+            data-target="#projectFormModal"
+          >
+            Add New Project
+          </button>
         </div>
         <div class="tasks-div col-md-8">
           <h2 class="text-center">Tasks</h2>
