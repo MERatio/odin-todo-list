@@ -33,7 +33,14 @@
             <form id="projectForm">
               <div class="form-group">
                 <label for="inputProjectName">Project name</label>
-                <input type="text" class="form-control" id="inputProjectName" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputProjectName"
+                  minlength="1"
+                  maxlength="50"
+                  required
+                />
               </div>
               <div class="d-flex justify-content-end">
                 <button
