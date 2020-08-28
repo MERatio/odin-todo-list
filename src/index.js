@@ -7,6 +7,8 @@ import controller from './js/controller.js';
 
 const init = () => {
   controller.attachEvents();
+  controller.addDefaultProject();
+  controller.populateDom();
 };
 
 init();
