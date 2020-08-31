@@ -1,8 +1,0 @@
-#mainContainer {
-  padding-top: 70px;
-}
-
-#tasks {
-  height: 50vh;
-  overflow: auto scroll;
-}
