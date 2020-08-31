@@ -7,6 +7,8 @@ import views from './views.js';
 const controller = (() => {
   const attachEvents = () => {
     domItems.projectForm.addEventListener('submit', domEvents.addProject);
+    domItems.taskForm.addEventListener('submit', domEvents.addTask);
+    domItems.projects.addEventListener('change', domEvents.selectProject);
   };
 
   const addDefaultProject = () => {
@@ -17,7 +19,12 @@ const controller = (() => {
   };
 
   const populateDom = () => {
-    views.populateDom(model.getProjects());
+    const projects = model.getProjects();
+    views.populateProjects(projects);
+    const selectedProjectName = views.getSelectedProjectName();
+    const selectedProject = model.getProject(selectedProjectName);
+    const tasks = selectedProject.tasks;
+    views.populateTasks(tasks);
   };
 
   return {

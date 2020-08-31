@@ -2,7 +2,22 @@
   padding-top: 70px;
 }
 
+.tasks-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tasks-h2 {
+  grid-column: 2 / 3;
+  justify-self: center;
+}
+
+#addTaskBtn {
+  justify-self: end;
+}
+
 #tasks {
   height: 50vh;
   overflow: auto scroll;
+  margin-top: 20px;
 }

@@ -9,6 +9,13 @@ const views = (() => {
     return domProject;
   };
 
+  const _createDomTask = (task) => {
+    const domTask = document.createElement('li');
+    domTask.classList.add('list-group-item');
+    domTask.textContent = task.title;
+    return domTask;
+  };
+
   const _alertAutoclose = () => {
     setTimeout(() => {
       $('.alert')
@@ -19,9 +26,15 @@ const views = (() => {
     }, 3000);
   };
 
-  const populateDom = (projects) => {
+  const populateProjects = (projects) => {
     for (let project of projects) {
       addProject(project);
+    }
+  };
+
+  const populateTasks = (tasks) => {
+    for (let task of tasks) {
+      addTask(task);
     }
   };
 
@@ -47,10 +60,22 @@ const views = (() => {
     domItems.projects.appendChild(domProject);
   };
 
+  const getSelectedProjectName = () => {
+    return domItems.projects.options[projects.selectedIndex].value;
+  };
+
+  const addTask = (task) => {
+    const domTask = _createDomTask(task);
+    domItems.tasks.appendChild(domTask);
+  };
+
   return {
-    populateDom,
+    populateProjects,
+    populateTasks,
     alert,
     addProject,
+    getSelectedProjectName,
+    addTask,
   };
 })();
 
