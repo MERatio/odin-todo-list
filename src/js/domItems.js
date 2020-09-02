@@ -10,6 +10,7 @@ const domItems = (() => {
   const inputTaskDesc = document.getElementById('inputTaskDesc');
   const inputTaskDueDate = document.getElementById('inputTaskDueDate');
   const selectTaskPriority = document.getElementById('selectTaskPriority');
+  const taskFormDeleteBtn = document.getElementById('taskFormDeleteBtn');
   const taskFormSubmitBtn = document.getElementById('taskFormSubmitBtn');
   const tasks = document.getElementById('tasks');
 
@@ -25,6 +26,7 @@ const domItems = (() => {
     inputTaskDesc,
     inputTaskDueDate,
     selectTaskPriority,
+    taskFormDeleteBtn,
     taskFormSubmitBtn,
     tasks,
   };

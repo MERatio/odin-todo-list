@@ -95,6 +95,11 @@ const views = (() => {
     domOldTask.textContent = newTaskTitle;
   };
 
+  const deleteTask = (taskTitle) => {
+    const domTask = document.querySelector(`li[data-tasktitle="${taskTitle}"]`);
+    domTask.remove();
+  };
+
   return {
     populateProjects,
     populateTasks,
@@ -104,6 +109,7 @@ const views = (() => {
     addTask,
     updateTaskFormInfo,
     updateTask,
+    deleteTask,
   };
 })();
 

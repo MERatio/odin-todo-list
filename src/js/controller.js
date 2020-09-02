@@ -10,6 +10,7 @@ const controller = (() => {
     domItems.addTaskBtn.addEventListener('click', domEvents.addTaskBtn);
     domItems.taskForm.addEventListener('submit', domEvents.taskForm);
     domItems.projects.addEventListener('change', domEvents.selectProject);
+    domItems.taskFormDeleteBtn.addEventListener('click', domEvents.deleteTask);
     domItems.tasks.addEventListener('click', domEvents.taskClick);
   };
 

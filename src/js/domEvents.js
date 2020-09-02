@@ -107,6 +107,7 @@ const domEvents = (() => {
     domItems.taskForm.reset();
     domItems.taskForm.setAttribute('data-action', 'create');
     domItems.taskFormModalLabel.textContent = 'Add New Task';
+    domItems.taskFormDeleteBtn.classList.add('d-none');
     domItems.taskFormSubmitBtn.textContent = 'Create task';
   };
 
@@ -114,6 +115,7 @@ const domEvents = (() => {
     if (e.target && Array.from(e.target.classList).includes('task')) {
       domItems.taskForm.setAttribute('data-action', 'update');
       domItems.taskFormModalLabel.textContent = 'Update Task';
+      domItems.taskFormDeleteBtn.classList.remove('d-none');
       domItems.taskFormSubmitBtn.textContent = 'Update task';
       const selectedProjectName = views.getSelectedProjectName();
       const selectedProject = model.getProject(selectedProjectName);
@@ -123,6 +125,15 @@ const domEvents = (() => {
     }
   };
 
+  const deleteTask = () => {
+    const selectedProjectName = views.getSelectedProjectName();
+    const selectedProject = model.getProject(selectedProjectName);
+    const selectedTaskTitle = selectedTask.title;
+    model.deleteTask(selectedTask, selectedProject);
+    views.deleteTask(selectedTaskTitle);
+    views.alert('success', 'Task is successfully deleted');
+  };
+
   return {
     addProject,
     taskForm,
@@ -130,6 +141,7 @@ const domEvents = (() => {
     taskClick,
     addTaskBtn,
     taskClick,
+    deleteTask,
   };
 })();
 

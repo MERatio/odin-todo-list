@@ -49,6 +49,11 @@ const model = (() => {
     return task;
   };
 
+  const deleteTask = (task, project) => {
+    project.tasks = project.tasks.filter((el) => el !== task);
+    localStorage.setItem('projects', JSON.stringify(_projects));
+  };
+
   return {
     isProjectNameUnique,
     isTaskTitleUnique,
@@ -58,6 +63,7 @@ const model = (() => {
     addTask,
     getTask,
     updateTask,
+    deleteTask,
   };
 })();
 
