@@ -11,9 +11,20 @@ const views = (() => {
 
   const _createDomTask = (task) => {
     const domTask = document.createElement('li');
-    domTask.classList.add('list-group-item');
+    domTask.classList.add('list-group-item', 'task');
+    _setAttributes(domTask, {
+      'data-toggle': 'modal',
+      'data-target': '#taskFormModal',
+      'data-tasktitle': task.title,
+    });
     domTask.textContent = task.title;
     return domTask;
+  };
+
+  const _setAttributes = (el, attrs) => {
+    for (let attrName in attrs) {
+      el.setAttribute(attrName, attrs[attrName]);
+    }
   };
 
   const _alertAutoclose = () => {
@@ -69,6 +80,21 @@ const views = (() => {
     domItems.tasks.appendChild(domTask);
   };
 
+  const updateTaskFormInfo = (task) => {
+    domItems.inputTaskTitle.value = task.title;
+    domItems.inputTaskDesc.value = task.description;
+    domItems.inputTaskDueDate.value = task.dueDate;
+    domItems.selectTaskPriority.value = task.priority;
+  };
+
+  const updateTask = (oldTaskTitle, newTaskTitle) => {
+    const domOldTask = document.querySelector(
+      `li[data-tasktitle="${oldTaskTitle}"]`
+    );
+    domOldTask.setAttribute('data-tasktitle', newTaskTitle);
+    domOldTask.textContent = newTaskTitle;
+  };
+
   return {
     populateProjects,
     populateTasks,
@@ -76,6 +102,8 @@ const views = (() => {
     addProject,
     getSelectedProjectName,
     addTask,
+    updateTaskFormInfo,
+    updateTask,
   };
 })();
 

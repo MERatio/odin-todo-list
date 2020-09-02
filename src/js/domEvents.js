@@ -5,6 +5,70 @@ import model from './model.js';
 import views from './views';
 
 const domEvents = (() => {
+  let selectedTask;
+
+  const _getTaskFormValues = () => {
+    const taskTitle = domItems.inputTaskTitle.value;
+    const taskDesc = domItems.inputTaskDesc.value;
+    const taskDueDate = domItems.inputTaskDueDate.value;
+    const taskPriority = domItems.selectTaskPriority.value;
+
+    return {
+      taskTitle,
+      taskDesc,
+      taskDueDate,
+      taskPriority,
+    };
+  };
+
+  const _addTask = (selectedProject) => {
+    const {
+      taskTitle,
+      taskDesc,
+      taskDueDate,
+      taskPriority,
+    } = _getTaskFormValues();
+    if (model.isTaskTitleUnique(taskTitle, selectedProject)) {
+      const task = new Task(taskTitle, taskDesc, taskDueDate, taskPriority);
+      model.addTask(task, selectedProject);
+      views.addTask(task);
+      views.alert('success', 'Task is successfully created');
+    } else {
+      views.alert(
+        'warning',
+        'Task title is already created, please enter other task title'
+      );
+    }
+  };
+
+  const _updateTask = (selectedTask, selectedProject) => {
+    const taskFormValues = _getTaskFormValues();
+    const oldTaskTitle = selectedTask.title;
+    let taskTitleUnique = false;
+    if (taskFormValues.taskTitle === oldTaskTitle) {
+      taskTitleUnique = true;
+    } else {
+      taskTitleUnique = model.isTaskTitleUnique(
+        taskFormValues.taskTitle,
+        selectedProject
+      );
+    }
+    if (taskTitleUnique) {
+      const updatedTask = model.updateTask(
+        selectedTask,
+        selectedProject,
+        taskFormValues
+      );
+      views.updateTask(oldTaskTitle, updatedTask.title);
+      views.alert('success', 'Task is successfully updated');
+    } else {
+      views.alert(
+        'warning',
+        'Task title is already created, please enter other task title'
+      );
+    }
+  };
+
   const addProject = (e) => {
     e.preventDefault();
     const projectName = domItems.inputProjectName.value;
@@ -21,25 +85,14 @@ const domEvents = (() => {
     }
   };
 
-  const addTask = (e) => {
+  const taskForm = (e) => {
     e.preventDefault();
-    const taskTitle = domItems.inputTaskTitle.value;
-    const taskDesc = domItems.inputTaskDesc.value;
-    const taskDueDate = domItems.inputTaskDueDate.value;
-    const taskPriority = domItems.selectTaskPriority.value;
+    const action = domItems.taskForm.dataset.action;
     const selectedProjectName = views.getSelectedProjectName();
     const selectedProject = model.getProject(selectedProjectName);
-    if (model.isTaskTitleUnique(taskTitle, selectedProject)) {
-      const task = new Task(taskTitle, taskDesc, taskDueDate, taskPriority);
-      model.addTask(task, selectedProject);
-      views.addTask(task);
-      views.alert('success', 'Task is successfully created');
-    } else {
-      views.alert(
-        'warning',
-        'Task title is already created, please enter other task title'
-      );
-    }
+    action === 'create'
+      ? _addTask(selectedProject)
+      : _updateTask(selectedTask, selectedProject);
   };
 
   const selectProject = () => {
@@ -50,10 +103,33 @@ const domEvents = (() => {
     views.populateTasks(tasks);
   };
 
+  const addTaskBtn = () => {
+    domItems.taskForm.reset();
+    domItems.taskForm.setAttribute('data-action', 'create');
+    domItems.taskFormModalLabel.textContent = 'Add New Task';
+    domItems.taskFormSubmitBtn.textContent = 'Create task';
+  };
+
+  const taskClick = (e) => {
+    if (e.target && Array.from(e.target.classList).includes('task')) {
+      domItems.taskForm.setAttribute('data-action', 'update');
+      domItems.taskFormModalLabel.textContent = 'Update Task';
+      domItems.taskFormSubmitBtn.textContent = 'Update task';
+      const selectedProjectName = views.getSelectedProjectName();
+      const selectedProject = model.getProject(selectedProjectName);
+      const taskTitle = e.target.dataset.tasktitle;
+      selectedTask = model.getTask(taskTitle, selectedProject);
+      views.updateTaskFormInfo(selectedTask);
+    }
+  };
+
   return {
     addProject,
-    addTask,
+    taskForm,
     selectProject,
+    taskClick,
+    addTaskBtn,
+    taskClick,
   };
 })();
 

@@ -36,6 +36,19 @@ const model = (() => {
     localStorage.setItem('projects', JSON.stringify(_projects));
   };
 
+  const getTask = (taskTitle, project) => {
+    return project.tasks.filter((task) => task.title === taskTitle)[0];
+  };
+
+  const updateTask = (task, project, values) => {
+    task.title = values.taskTitle;
+    task.description = values.taskDesc;
+    task.dueDate = values.taskDueDate;
+    task.priority = values.taskPriority;
+    localStorage.setItem('projects', JSON.stringify(_projects));
+    return task;
+  };
+
   return {
     isProjectNameUnique,
     isTaskTitleUnique,
@@ -43,6 +56,8 @@ const model = (() => {
     getProject,
     addProject,
     addTask,
+    getTask,
+    updateTask,
   };
 })();
 

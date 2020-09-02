@@ -7,8 +7,10 @@ import views from './views.js';
 const controller = (() => {
   const attachEvents = () => {
     domItems.projectForm.addEventListener('submit', domEvents.addProject);
-    domItems.taskForm.addEventListener('submit', domEvents.addTask);
+    domItems.addTaskBtn.addEventListener('click', domEvents.addTaskBtn);
+    domItems.taskForm.addEventListener('submit', domEvents.taskForm);
     domItems.projects.addEventListener('change', domEvents.selectProject);
+    domItems.tasks.addEventListener('click', domEvents.taskClick);
   };
 
   const addDefaultProject = () => {

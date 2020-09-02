@@ -21,3 +21,12 @@
   overflow: auto scroll;
   margin-top: 20px;
 }
+
+.task {
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.task:hover {
+  background-color: #d1d1d1;
+}
